@@ -9,6 +9,17 @@ class TeamsController < ApplicationController
     authorize! :read, @team
   end
 
+  def create
+    @team = Team.new(team_params)
+    respond_to do |format|
+      if @team.save
+        format.html { redirect_to @team.slug }
+      else
+        format.html { redirect_to main_app.root_url, notice: @team.errors }
+      end
+    end
+  end
+
   private
 
   def set_by_slug_team

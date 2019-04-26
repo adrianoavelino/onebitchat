@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :teams, only: [:index]
+  resources :teams, only: [:index, :create]
   get '/:slug', to: 'teams#show'
   root to: 'teams#index'
   devise_for :users, :controllers => { registrations: 'registrations' }
