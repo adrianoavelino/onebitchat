@@ -16,4 +16,33 @@ RSpec.describe TeamsController, type: :controller do
     end
   end
 
+  describe 'GET #show' do
+    context 'team exists' do
+      context 'User is the owner of the team' do
+        it 'returns success' do
+          another_user = create(:user)
+          team = create(:team, user: @current_user)
+          get :show, params: {slug: team.slug}
+          expect(response).to have_http_status(:success)
+        end
+        context 'User is member of the team' do
+          it 'Returns success' do
+            team = create(:team)
+            team.users << @current_user
+            get :show, params: {slug: team.slug}
+            expect(response).to have_http_status(:success)
+          end
+        end
+        context "User is not the owner or member of the team" do
+          it "Redirects to root" do
+            team = create(:team)
+            get :show, params: {slug: team.slug}
+            
+            expect(response).to redirect_to('/')
+          end
+        end
+      end
+    end
+  end
+
 end
