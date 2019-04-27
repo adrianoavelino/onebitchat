@@ -20,6 +20,15 @@ class TeamsController < ApplicationController
     end
   end
 
+  def destroy
+    @team = Team.find(params[:id])
+    authorize! :destroy, @team
+    @team.destroy
+    respond_to do |format|
+      format.json {head :no_content}
+    end
+  end
+
   private
 
   def set_by_slug_team

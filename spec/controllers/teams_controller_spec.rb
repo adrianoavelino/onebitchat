@@ -60,4 +60,37 @@ RSpec.describe TeamsController, type: :controller do
       expect(Team.last.slug).to eql(@team_attributes[:slug])
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'User is the Team Owner' do
+      it 'Returns http success' do
+        request.env['HTTP_ACCEPT'] = 'application/json'
+        team = create(:team, user: @current_user)
+        delete :destroy, params: {id:team.id}
+        expect(response).to have_http_status(:success)
+        expect(Team.count).to eq 0
+      end
+    end
+
+    context 'User isn\'t the team Owner' do
+      it 'returns http forbidden' do
+        request.env['HTTP_ACCEPT'] = 'application/json'
+        team = create(:team )
+        delete :destroy, params: {id: team.id}
+        expect(response).to have_http_status(:forbidden)
+        # byebug
+      end
+    end
+
+    context "User is member of the team" do
+      it "returns http forbidden" do
+        request.env['HTTP_ACCEPT'] = 'application/json'
+        team = create(:team)
+        team.users << @current_user
+        delete :destroy, params: {id: team.id}
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+  end
 end
