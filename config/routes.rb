@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :talks, only: [:show]
-
+  resources :team_users
   resources :teams, only: [:index, :create, :destroy]
   resources :channels, only: [:create]
   get '/:slug', to: 'teams#show'

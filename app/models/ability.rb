@@ -25,9 +25,9 @@ class Ability
         t.user_one_id == user.id || t.user_two_id == user.id
       end
 
-      # can [:create, :destroy], TeamUser do |t|
-      #   t.team.user_id == user.id
-      # end
+      can [:create, :destroy], TeamUser do |t|
+        t.team.user_id == user.id
+      end
     end
   end
 end
