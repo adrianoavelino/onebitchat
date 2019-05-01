@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  before_action :set_team, only: [:destroy]
   before_action :set_by_slug_team, only: [:show]
 
   def index
@@ -21,11 +22,10 @@ class TeamsController < ApplicationController
   end
 
   def destroy
-    @team = Team.find(params[:id])
     authorize! :destroy, @team
     @team.destroy
     respond_to do |format|
-      format.json {head :no_content}
+      format.json { render json: true }
     end
   end
 
@@ -33,6 +33,10 @@ class TeamsController < ApplicationController
 
   def set_by_slug_team
     @team = Team.find_by(slug: params[:slug])
+  end
+
+  def set_team
+    @team = Team.find(params[:id])
   end
 
   def team_params
