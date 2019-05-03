@@ -8,6 +8,7 @@
           </div>
           <div class="input-field col s12">
             <%= hidden_field(:channel, :team_id, value: @team.id ) %>
+            <%= hidden_field(:channel, :user_id, value: @team.user_id ) %>
             <%= text_field(:channel, :slug) %>
             <%= label_tag(:email, "Channel Name") %>
             <%= submit_tag("Add Channel", class: "btn right") %>

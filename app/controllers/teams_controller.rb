@@ -14,7 +14,7 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     respond_to do |format|
       if @team.save
-        format.html { redirect_to @team.slug }
+        format.html { redirect_to "/#{@team.slug}" }
       else
         format.html { redirect_to main_app.root_url, notice: @team.errors }
       end
