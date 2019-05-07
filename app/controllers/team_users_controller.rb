@@ -6,6 +6,7 @@ class TeamUsersController < ApplicationController
     authorize! :create, @team_user
 
     respond_to do |format|
+      byebug
       if @team_user.save
         format.json { render :show, status: :created }
       else
