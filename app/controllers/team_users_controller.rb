@@ -5,13 +5,10 @@ class TeamUsersController < ApplicationController
     @team_user = TeamUser.new(team_user_params)
     authorize! :create, @team_user
 
-    respond_to do |format|
-      byebug
-      if @team_user.save
-        format.json { render :show, status: :created }
-      else
-        format.json { render json: @team_user.errors, status: :unprocessable_entity }
-      end
+    if @team_user.save
+      render json: @team_user.user, status: :created
+    else
+      render json: @team_user.errors, status: :unprocessable_entity
     end
   end
 
