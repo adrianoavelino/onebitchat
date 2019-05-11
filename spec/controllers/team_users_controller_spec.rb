@@ -66,5 +66,38 @@ RSpec.describe TeamUsersController, type: :controller do
         expect(response).to have_http_status(:forbidden)
       end
     end
+
+    context 'User as a Member' do
+      it 'returns http success' do
+        @team = create(:team)
+        @member = @current_user
+        @team.users << @member
+
+        # byebug
+        expect { delete :destroy,
+                 params: {
+                   id: @member.id,
+                   team_id: @team.id
+                  }
+                }.to change(TeamUser, :count).by(-1)
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    context 'User isn\'t a Member' do
+      it 'returns http success' do
+        @team = create(:team)
+        @member = create(:user)
+        @team.users << @member
+
+        expect { delete :destroy,
+                 params: {
+                   id: @member.id,
+                   team_id: @team.id
+                  }
+                }.to change(TeamUser, :count).by(0)
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
   end
 end
