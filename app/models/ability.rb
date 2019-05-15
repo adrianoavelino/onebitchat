@@ -32,6 +32,14 @@ class Ability
       can [:destroy], TeamUser do |t|
         t.team.user_id == user.id || t.user.id == user.id
       end
+
+      can [:create], Invitation do |i|
+        Team.find(i.team_id).user_id == user.id
+      end
+
+      can [:update], Invitation do |i|
+        Team.find(i.team_id).user_id == user.id || user.email == i.email
+      end
     end
   end
 end

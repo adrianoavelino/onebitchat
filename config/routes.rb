@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :team_users
   resources :teams, only: [:create, :destroy]
   resources :channels, only: [:show, :create, :destroy]
+  resources :invitations, only: [:create, :update]
   get '/:slug', to: 'teams#show'
   root to: 'teams#index'
   devise_for :users, :controllers => { registrations: 'registrations' }

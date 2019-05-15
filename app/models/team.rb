@@ -4,6 +4,7 @@ class Team < ApplicationRecord
   has_many :channels, dependent: :destroy
   has_many :team_users, dependent: :destroy
   has_many :users, through: :team_users
+  has_many :invitations, dependent: :destroy
   validates_presence_of :slug, :user
   validates :slug, uniqueness: true, format: { with: /\A[a-zA-Z0-9]+\Z/ }
 
@@ -15,5 +16,5 @@ class Team < ApplicationRecord
 
   def my_users
     self.users + [self.user]
-  end  
+  end
 end

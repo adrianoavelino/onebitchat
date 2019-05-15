@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190423013959) do
+ActiveRecord::Schema.define(version: 20190512172434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 20190423013959) do
     t.datetime "updated_at", null: false
     t.index ["team_id"], name: "index_channels_on_team_id", using: :btree
     t.index ["user_id"], name: "index_channels_on_user_id", using: :btree
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.string   "email"
+    t.integer  "status"
+    t.integer  "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_invitations_on_team_id", using: :btree
   end
 
   create_table "messages", force: :cascade do |t|
@@ -79,6 +88,7 @@ ActiveRecord::Schema.define(version: 20190423013959) do
 
   add_foreign_key "channels", "teams"
   add_foreign_key "channels", "users"
+  add_foreign_key "invitations", "teams"
   add_foreign_key "talks", "teams"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
