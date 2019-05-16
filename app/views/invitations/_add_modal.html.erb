@@ -1,0 +1,20 @@
+<div id="invite_user_modal" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <%= form_tag("invitations", :method => :post, class: "col s12 invite_user_form") do %>
+        <div class="row">
+          <div class="col s12">
+            <h4>Invite a User</h4>
+          </div>
+          <div class="input-field col s12">
+            <%= hidden_field(:invitation, :team_id) %>
+            <%= text_field(:invitation, :email, value: 'user1@email.com') %>
+            <%= text_field(:invitation, :status, value: :pending) %>
+            <%= label_tag(:email, "Email") %>
+            <%= submit_tag("Invite User", class: "btn right") %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
