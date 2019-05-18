@@ -1,4 +1,4 @@
 class Invitation < ApplicationRecord
   belongs_to :team
-  enum status: [:not_registered, :pending, :denied, :accepts]
+  enum status: [:pending, :accepted, :denied]
 end

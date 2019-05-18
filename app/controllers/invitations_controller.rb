@@ -1,4 +1,9 @@
 class InvitationsController < ApplicationController
+  def index
+    my_teams = Team.where(user_id: current_user.id)
+    @invitations = Invitation.includes(:team).where(team_id: my_teams)
+  end
+  
   def create
     @invitation = Invitation.new(invitation_params)
     authorize! :create, @invitation

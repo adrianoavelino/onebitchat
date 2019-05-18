@@ -1,0 +1,15 @@
+<div class="center row no_team">
+    <h5>Your Invitations</h5>
+    <div class="row">
+      <ul class="collection col m4 offset-m4 s10 offset-s1">
+        <% @invitations.each do |invitation| %>
+          <li class="collection-item dismissable">
+            <div class="">
+              <strong>Email</strong>: <%= invitation.email %> / <strong>Team</strong>: <%= invitation.team.slug %>
+              <span class="new badge <%= get_status_color(invitation.status) %>" data-badge-caption="<%= invitation.status %>"></span>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+</div>
