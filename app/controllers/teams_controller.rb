@@ -4,6 +4,7 @@ class TeamsController < ApplicationController
 
   def index
     @teams = current_user.teams
+    @invitations = Invitation.where(email: current_user.email, status: :pending)
   end
 
   def show

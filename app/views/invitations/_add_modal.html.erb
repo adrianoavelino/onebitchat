@@ -8,8 +8,8 @@
           </div>
           <div class="input-field col s12">
             <%= hidden_field(:invitation, :team_id) %>
-            <%= text_field(:invitation, :email, value: 'user1@email.com') %>
-            <%= text_field(:invitation, :status, value: :pending) %>
+            <%= text_field(:invitation, :email) %>
+            <%= hidden_field(:invitation, :status, value: :pending) %>
             <%= label_tag(:email, "Email") %>
             <%= submit_tag("Invite User", class: "btn right") %>
           </div>

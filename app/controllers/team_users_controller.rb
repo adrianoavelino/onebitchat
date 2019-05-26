@@ -5,8 +5,14 @@ class TeamUsersController < ApplicationController
     @team_user = TeamUser.new(team_user_params)
     authorize! :create, @team_user
 
-    if @team_user.save
-      render json: @team_user.user, status: :created
+    if @team_user.valid?
+      TeamUser.transaction do
+        @team_user.save
+        invitation = Invitation.where(email: params[:team_user][:email]  ,team_id: params[:team_user][:team_id], status: :pending)
+        invitation.last.update({status: :accepted})
+        @team = Team.find(params[:team_user][:team_id])
+        render json: @team, status: :created
+      end
     else
       render json: @team_user.errors, status: :unprocessable_entity
     end

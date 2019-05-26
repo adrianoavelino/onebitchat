@@ -3,12 +3,15 @@ class InvitationsController < ApplicationController
     my_teams = Team.where(user_id: current_user.id)
     @invitations = Invitation.includes(:team).where(team_id: my_teams)
   end
-  
+
   def create
     @invitation = Invitation.new(invitation_params)
     authorize! :create, @invitation
+
     if @invitation.save
       render json: @invitation, status: :created
+    else
+      render json: @invitation.errors.messages, status: :unprocessable_entity
     end
   end
 
