@@ -40,6 +40,8 @@ gem 'cancancan'
 gem 'materialize-sass', '~> 0.98.2'
 gem 'material_icons'
 gem 'redis', '~> 3.0.0'
+gem 'sidekiq'
+gem 'sinatra'
 
 group :test do
   gem 'factory_bot_rails'
