@@ -1,4 +1,5 @@
 class Invitation < ApplicationRecord
+  after_create :invitation_emails
   belongs_to :team
   enum status: [:pending, :accepted, :denied]
   validate :is_a_member_of_the_team, on: :create
@@ -13,5 +14,9 @@ class Invitation < ApplicationRecord
     user = User.where(email: self.email).last
     teamUsers = TeamUser.where(user_id: user.id  ,team_id: self.team_id)
     errors.add(:email, "already is a member") if teamUsers.count > 0 || self.team.user.email == self.email
+  end
+
+  def invitation_emails
+    InvitationJob.perform_later self
   end
 end
