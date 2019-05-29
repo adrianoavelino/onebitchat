@@ -5,11 +5,11 @@
         <div class="row">
           <div class="col s12">
             <h4>Exit from Team</h4>
-            <p>Do you want exit from Team <strong><%= @team? @team.slug : '' %></strong>?</p>
+            <p>Do you want to leave Team <strong><%= @team? @team.slug : '' %></strong>?</p>
           </div>
           <div class="input-field col s12">
             <input type="hidden" name="user_leave_team_id" id="user_leave_team_id" value="<%= @team %>">
-            <%= submit_tag("Remove", class: "btn red right") %>
+            <%= submit_tag("Leave Team", class: "btn red right") %>
           </div>
         </div>
       <% end %>

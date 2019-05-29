@@ -39,8 +39,9 @@
                   <strong>Team</strong>: <%= invitation.team.slug %>
                   <%= hidden_field(:team_user, :team_id, value: invitation.team_id) %>
                   <%= hidden_field(:team_user, :email, value: invitation.email) %>
-                  <%= submit_tag("Accept", class: "btn btn-small btn-accept-invitation") %>
-                  <a class="btn btn-small red "  data-invitation="<%= invitation.id %>">Deny</a>
+                  <%= button_tag :submit, class: "btn-floating grey pulse" do %>
+                    <i class='material-icons'>add</i>
+                  <% end %>
                 </div>
               </div>
             <% end %>
