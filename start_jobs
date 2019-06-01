@@ -1,2 +1,2 @@
 # Roda os jobs
-bundle exec sidekiq -q emails
+bundle exec sidekiq -c 2 -q default -q emails
