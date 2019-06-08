@@ -3,11 +3,9 @@ class NotificationBroadcastJob < ApplicationJob
 
   def perform(message)
     m = message.messagable
-    ActionCable.server.broadcast('notification', {
-                                          message: message.body,
-                                          slug: m.slug,
-                                          date: message.created_at.strftime("%d/%m/%y"),
-                                          name: message.user.name
+    chat_name = "notification_team_#{m.team.id}"
+    ActionCable.server.broadcast(chat_name, {
+                                          slug: m.slug
                                         })
   end
 end

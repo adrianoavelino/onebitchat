@@ -33,6 +33,7 @@ window.open = (id, type) ->
           set_chat(data['slug'])
 
         window.change_chat(id, type, $(".team_id").val())
+        window.notification(data.team_id)
 
         if(data['messages'])
           for message in data['messages']
