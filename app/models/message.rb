@@ -7,7 +7,7 @@ class Message < ApplicationRecord
 
   private
   def jobs
+    NotificationBroadcastJob.perform_later(self, user)
     MessageBroadcastJob.perform_later self
-    NotificationBroadcastJob.perform_later self
   end
 end
