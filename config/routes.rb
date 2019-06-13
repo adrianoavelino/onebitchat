@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :teams, only: [:create, :destroy]
   resources :channels, only: [:show, :create, :destroy]
   resources :invitations, only: [:index, :create, :update]
+  post '/notifications', to: 'notifications#update_or_create'
   get '/:slug', to: 'teams#show'
   root to: 'teams#index'
   devise_for :users, :controllers => { registrations: 'registrations' }
