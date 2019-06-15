@@ -13,8 +13,9 @@ class NotificationBroadcastJob < ApplicationJob
     else
       user_one = User.find(m.user_one_id).name
       user_two = User.find(m.user_two_id).name
-      owner = (user.name == user_one)? user_one : user_two
-      member = (owner != user_one)? user_two : user_one
+      # owner = (user.name == user_one)? user_one : user_two
+      owner = user.name
+      member = (owner != user_one)?user_one :user_two
       slug = []
       slug.push(owner)
       slug.push(member)
@@ -23,7 +24,8 @@ class NotificationBroadcastJob < ApplicationJob
 
     ActionCable.server.broadcast(chat_name, {
                                           slug: slug,
-                                          type: type
+                                          type: type,
+                                          message_id: m.id
                                         })
   end
 end
