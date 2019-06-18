@@ -25,7 +25,7 @@ class NotificationBroadcastJob < ApplicationJob
     ActionCable.server.broadcast(chat_name, {
                                           slug: slug,
                                           type: type,
-                                          message_id: m.id
+                                          message_id: message.id
                                         })
   end
 end
