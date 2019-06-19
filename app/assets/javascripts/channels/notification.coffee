@@ -7,6 +7,7 @@ $(document).on 'turbolinks:load', ->
 
     received: (data) ->
       console.log 'recebeu em notification'
+      console.log data
       current_user_id = $(".team_title").attr("data-user-id")
       type = data.type
       chat_name_opened = $(".chat_name").text()
@@ -16,9 +17,10 @@ $(document).on 'turbolinks:load', ->
         return chat_current == chat_from_websocket
 
       has_notification = (_chat_name, chat_from_websocket) ->
-        return _chat_name == chat_from_websoc  #
+        return _chat_name == chat_from_websocket
 
-      if is_chat_opened(chat_name_opened, chat_name_updated_from_websocket) || is_chat_opened(chat_name_opened, chat_name_updated_from_websocket[1])
+      # debugger
+      if is_chat_opened(chat_name_opened, chat_name_updated_from_websocket) || is_chat_opened(chat_name_opened, chat_name_updated_from_websocket[0]) || is_chat_opened(chat_name_opened, chat_name_updated_from_websocket[1])
         console.log 'atualiza notificação como visualizada'
         $.post '/notifications', { notification:
           message_id: data.message_id

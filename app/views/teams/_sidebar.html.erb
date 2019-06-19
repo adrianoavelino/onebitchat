@@ -27,7 +27,11 @@
                      <% @team.channels.each do |channel| %>
                      <li class="channel_<%= channel.id %>">
                         <div>
-                           <a href="#" class="open_channel" id="<%= channel.id %>">
+                           <a href="#" class="open_channel" id="<%= channel.id %>"
+                            <% if !is_channel_updated(channel, current_user) %>
+                              style="font-weight: bold;"
+                            <% end %>
+                              >
                            <span id="<%= channel.id %>">#<%= channel.slug %></span>
                            </a>
                            <% if can? :destroy, channel %>
@@ -65,7 +69,12 @@
                         <% if user != current_user %>
                         <li class="user_<%= user.id %>">
                            <div>
-                              <a href="#" id="<%= user.id %>" class="open_user">
+                             <% debug @team %>
+                              <a href="#" id="<%= user.id %>" class="open_user"
+                                <% if !is_talk_updated(user, current_user, @team) %>
+                                  style="font-weight: bold;"
+                                <% end %>
+                                  >
                                 <span id="<%= user.id %>"><%= user.name %></span>
                               </a>
                               <% if can? :destroy, @team %>
